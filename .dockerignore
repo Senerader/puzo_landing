@@ -1,6 +1,7 @@
 *
 !Dockerfile
-!Caddyfile
+!deploy/
+!deploy/static.Caddyfile
 !index.html
 !styles.css
 !script.js

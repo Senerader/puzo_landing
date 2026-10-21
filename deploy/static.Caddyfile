@@ -1,4 +1,5 @@
-{$SITE_ADDRESS:landing.puzoapps.com} {
+# Application-only HTTP server. Public domains and TLS belong to puzo_infra.
+:80 {
 	root * /srv
 	encode zstd gzip
 

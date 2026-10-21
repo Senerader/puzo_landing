@@ -10,61 +10,32 @@ python3 dev.py
 
 Откройте `http://127.0.0.1:8080`. Скрипт корректно сопоставляет `/assets/` с каталогом `public/assets/`.
 
-## Запуск на Hetzner
+## Контейнер приложения
 
-Нужны Docker Engine и Docker Compose v2. Скопируйте проект на виртуальную машину, затем:
+В этом репозитории остаются исходники сайта, Dockerfile и внутренняя конфигурация раздачи статики `deploy/static.Caddyfile`. Контейнер обслуживает HTTP на порту `80`; домены, HTTPS, сертификаты и маршруты общего Caddy управляются в `puzo_infra`.
 
-1. Создайте DNS-запись `A` для `landing.puzoapps.com` с реальным IPv4 вашей машины. Добавляйте `AAAA` только при настроенном и доступном IPv6.
-2. Разрешите входящие TCP-порты `80` и `443` в firewall машины и Hetzner. UDP `443` нужен для HTTP/3.
-3. Убедитесь, что эти порты свободны. Если их уже занимает другой сайт или reverse proxy, используйте вариант ниже.
-4. В каталоге проекта выполните:
+Для локальной проверки контейнера:
 
 ```sh
 docker compose config --quiet
 docker compose up -d --build
 docker compose logs --tail=50 landing
-curl --fail --silent --show-error -I https://landing.puzoapps.com
+curl --fail --silent --show-error -I http://127.0.0.1:8080/
 ```
 
-Caddy автоматически получает и продлевает TLS-сертификат, перенаправляет HTTP на HTTPS и сохраняет сертификаты в Docker volume `caddy_data`. DNS должен указывать на эту машину, а TCP-порты должны быть доступны извне. [Документация Caddy](https://caddyserver.com/docs/automatic-https).
+Compose из этого репозитория публикует только `127.0.0.1:8080`. Откройте `http://127.0.0.1:8080` и проверьте EN/RU, обе темы и ссылки на сервисы. Параметр `SITE_ADDRESS` больше не требуется: внутренний сервер всегда слушает `:80`.
 
-После проверки URL откройте сайт с компьютера и телефона: проверьте EN/RU, обе темы и ссылки на сервисы.
+## Развёртывание на Hetzner
 
-## Если на машине уже есть reverse proxy
+Production Compose, конфигурация общего Caddy, DNS/TLS и порядок обновления находятся в `puzo_infra`: `docs/landing.md` и `deploy/landing/compose.yaml`. Развёртывание выполняется оттуда с выбранным commit и отдельным тегом образа.
 
-Соберите тот же образ и запустите его только на loopback-порту `8080`:
+Контракт приложения совместим с описанной там схемой:
 
-```sh
-docker build -t puzo-landing:local .
-docker run -d --name puzo-landing --restart unless-stopped \
-  -e SITE_ADDRESS=:80 \
-  -p 127.0.0.1:8080:80 \
-  puzo-landing:local
-curl --fail --silent --show-error -I http://127.0.0.1:8080
+```text
+landing.puzoapps.com → общий Caddy на VM → 127.0.0.1:8080 → landing:80
 ```
 
-Добавьте `landing.puzoapps.com` в существующий reverse proxy и направьте его на `http://127.0.0.1:8080`; HTTPS в этом варианте обслуживает существующий proxy. Например, для Caddy, запущенного на самой машине:
-
-```caddyfile
-landing.puzoapps.com {
-    reverse_proxy 127.0.0.1:8080
-}
-```
-
-Если существующий proxy работает в Docker, его `127.0.0.1` указывает внутрь собственного контейнера. Подключите оба контейнера к общей Docker-сети и используйте имя контейнера и порт `80` как upstream.
-
-В production-варианте с Compose дополнительные команды `docker run` не нужны.
-
-## Обновление
-
-Обновите файлы проекта на машине и пересоберите контейнер:
-
-```sh
-docker compose up -d --build
-curl --fail --silent --show-error -I https://landing.puzoapps.com
-```
-
-Для варианта за существующим proxy пересоберите образ и пересоздайте только контейнер `puzo-landing` с той же командой `docker run`. Не удаляйте volumes Caddy при обычном обновлении.
+Общий Caddy занимает публичные порты `80/443`. Контейнер приложения не выпускает сертификаты и не требует volumes для их хранения. Если reverse proxy запускается в Docker, сеть контейнеров и upstream настраиваются в инфраструктурном репозитории.
 
 Основные файлы: `index.html` — содержание, `styles.css` — оформление, `script.js` — языки, темы и анимация. Изображения находятся в `public/assets/` и доступны на сайте как `/assets/…`. Секреты и переменные окружения приложению не нужны.
 
