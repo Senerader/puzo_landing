@@ -1,0 +1,19 @@
+{$SITE_ADDRESS:landing.puzoapps.com} {
+	root * /srv
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	@page path / /index.html /styles.css /script.js /theme-init.js /robots.txt /sitemap.xml
+	header @page Cache-Control "no-cache"
+
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=86400"
+
+	file_server
+	log
+}

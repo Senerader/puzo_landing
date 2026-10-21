@@ -1,0 +1,11 @@
+*
+!Dockerfile
+!Caddyfile
+!index.html
+!styles.css
+!script.js
+!theme-init.js
+!robots.txt
+!sitemap.xml
+!public/
+!public/**
