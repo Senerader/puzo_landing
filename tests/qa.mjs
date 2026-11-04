@@ -129,7 +129,7 @@ try {
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('html').getAttribute('lang'), 'ru');
     assert.equal(await page.locator('[data-language="ru"]').getAttribute('aria-pressed'), 'true');
-    assert.match(await page.title(), /Немного софта/);
+    assert.match(await page.title(), /Делаем игры/);
     for (const selector of ['meta[name="description"]', 'meta[property="og:title"]', 'meta[property="og:description"]']) {
       assert.match(await page.locator(selector).getAttribute('content'), /[а-яё]/i);
     }

@@ -22,13 +22,13 @@ const copy = {
     navStudio: "The studio",
     navContact: "Contact",
     heroEyebrow: "INDEPENDENT MINDS. PLAYFUL IDEAS.",
-    heroLine1: "A little software.",
-    heroLine2: "A lot of play.",
+    heroLine1: "We make games.",
+    heroLine2: "Altushka approves.",
     heroDescription:
       "We build small tools and bigger adventures. Digital experiences that make room for your imagination.",
     exploreProjects: "Explore our projects",
     heroNote: "A small studio. An open playground.",
-    portalAlt: "Chrome portal with a glowing blue orbit",
+    portalAlt: "Altushka in a business suit inside a glowing chrome portal",
     createLabel: "Make something.",
     playLabel: "Go beyond the game.",
     scrollDiscover: "SCROLL TO DISCOVER",
@@ -87,11 +87,11 @@ const copy = {
     languageChanged: "Language: English",
     themeLightStatus: "Light theme enabled",
     themeDarkStatus: "Dark theme enabled",
-    pageTitle: "Puzo Software — A little software. A lot of play.",
+    pageTitle: "Puzo Software — We make games. Altushka approves.",
     pageDescription:
-      "A small independent software company building digital experiences for creativity, entertainment and gaming. Explore Canvasik and LEGENDA.",
+      "We make games. Altushka approves. Explore Canvasik and LEGENDA by Puzo Software.",
     ogDescription:
-      "Independent software. Playful ideas. Discover Canvasik and LEGENDA by Puzo Software OÜ.",
+      "We make games. Altushka approves. Discover Canvasik and LEGENDA by Puzo Software OÜ.",
   },
   ru: {
     motionPause: "Приостановить декоративные анимации",
@@ -116,13 +116,13 @@ const copy = {
     navStudio: "О студии",
     navContact: "Контакты",
     heroEyebrow: "СВОИ ИДЕИ. СВОИ ПРАВИЛА ИГРЫ.",
-    heroLine1: "Немного софта.",
-    heroLine2: "Много игр.",
+    heroLine1: "Делаем игры.",
+    heroLine2: "Альтушка одобряет.",
     heroDescription:
       "Создаём маленькие инструменты и большие приключения. Цифровые сервисы, в которых есть место вашему воображению.",
     exploreProjects: "Наши проекты",
     heroNote: "Маленькая студия. Простор для идей.",
-    portalAlt: "Металлический портал со светящейся голубой орбитой",
+    portalAlt: "Альтушка в деловом костюме внутри сияющего хромированного портала",
     createLabel: "Создайте что-нибудь.",
     playLabel: "Больше, чем игра.",
     scrollDiscover: "ЛИСТАЙТЕ ДАЛЬШЕ",
@@ -182,11 +182,11 @@ const copy = {
     languageChanged: "Язык: русский",
     themeLightStatus: "Включена светлая тема",
     themeDarkStatus: "Включена тёмная тема",
-    pageTitle: "Puzo Software — Немного софта. Много игр.",
+    pageTitle: "Puzo Software — Делаем игры. Альтушка одобряет.",
     pageDescription:
-      "Маленькая независимая компания, которая создаёт цифровые сервисы для творчества, интернет-развлечений и игр. Знакомьтесь: Canvasik и LEGENDA.",
+      "Делаем игры. Альтушка одобряет. Знакомьтесь: Canvasik и LEGENDA от Puzo Software.",
     ogDescription:
-      "Независимая студия. Идеи с характером. Canvasik и LEGENDA от Puzo Software OÜ.",
+      "Делаем игры. Альтушка одобряет. Canvasik и LEGENDA от Puzo Software OÜ.",
   },
 };
 
